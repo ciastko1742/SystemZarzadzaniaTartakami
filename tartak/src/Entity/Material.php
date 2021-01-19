@@ -36,4 +36,28 @@ class Material
     {
         return $this->id;
     }
+    public function getIdType()
+    {
+        return $this->id_type;
+    }
+    public function setIdType($id_type): void
+    {
+        $this->id_type = $id_type;
+    }
+    public function getName()
+    {
+        return $this->name;
+    }
+    public function setName($name): void
+    {
+        $this->name = $name;
+    }
+    public function getPriceM3()
+    {
+        return $this->priceM3;
+    }
+    public function setPriceM3($priceM3): void
+    {
+        $this->priceM3 = $priceM3;
+    }
 }

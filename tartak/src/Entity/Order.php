@@ -27,4 +27,12 @@ class Order
     {
         return $this->id;
     }
+    public function getIdCart()
+    {
+        return $this->id_cart;
+    }
+    public function setIdCart($id_cart): void
+    {
+        $this->id_cart = $id_cart;
+    }
 }

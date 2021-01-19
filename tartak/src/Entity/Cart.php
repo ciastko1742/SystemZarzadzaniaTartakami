@@ -46,4 +46,44 @@ class Cart
     {
         return $this->id;
     }
+    public function getIdOffer()
+    {
+        return $this->id_offer;
+    }
+    public function setIdOffer($id_offer): void
+    {
+        $this->id_offer = $id_offer;
+    }
+    public function getOfferPrice()
+    {
+        return $this->offer_price;
+    }
+    public function setOfferPrice($offer_price): void
+    {
+        $this->offer_price = $offer_price;
+    }
+    public function getTransportPrice()
+    {
+        return $this->transport_price;
+    }
+    public function setTransportPrice($transport_price): void
+    {
+        $this->transport_price = $transport_price;
+    }
+    public function getFianlPrice()
+    {
+        return $this->final_price;
+    }
+    public function setFinalPrice($final_price): void
+    {
+        $this->final_price = $final_price;
+    }
+    public function getDateAdd()
+    {
+        return $this->date_add;
+    }
+    public function setName($date_add): void
+    {
+        $this->date_add = $date_add;
+    }
 }

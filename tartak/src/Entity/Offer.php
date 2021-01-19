@@ -31,4 +31,20 @@ class Offer
     {
         return $this->id;
     }
+    public function getIdCalculation()
+    {
+        return $this->id_calculation;
+    }
+    public function setIdCalculation($id_calculation): void
+    {
+        $this->id_calculation = $id_calculation;
+	}
+    public function getIdUser()
+    {
+        return $this->id_user;
+    }
+    public function setIdUser($id_user): void
+    {
+        $this->id_user = $id_user;
+	}
 }

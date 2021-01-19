@@ -31,4 +31,20 @@ class Transport
     {
         return $this->id;
     }
+    public function getName()
+    {
+        return $this->name;
+    }
+    public function setName($name): void
+    {
+        $this->name = $name;
+    }
+    public function getPrice()
+    {
+        return $this->price;
+    }
+    public function setName($price): void
+    {
+        $this->price = $price;
+    }
 }
