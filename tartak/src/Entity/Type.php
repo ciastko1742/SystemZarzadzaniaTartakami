@@ -17,6 +17,11 @@ class Type
      */
     private $id;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $name;
+
     public function getId(): ?int
     {
         return $this->id;
