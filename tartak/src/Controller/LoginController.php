@@ -25,4 +25,12 @@ class LoginController extends AbstractController
      * @Route("/logout", name="logout")
      */
     public function logout() : Response {}
+
+    /**
+     * @Route("/register", name="register"
+     */
+    public function register(Request $request) : Response {
+
+    }
+
 }

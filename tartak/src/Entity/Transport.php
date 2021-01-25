@@ -43,8 +43,4 @@ class Transport
     {
         return $this->price;
     }
-    public function setName($price): void
-    {
-        $this->price = $price;
-    }
 }

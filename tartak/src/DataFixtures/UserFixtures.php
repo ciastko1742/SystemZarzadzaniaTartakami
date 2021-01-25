@@ -35,20 +35,66 @@ class UserFixtures extends Fixture
      * @return void
      */
     public function load(ObjectManager $manager) : void {
-        $user = new Users();
-        $user->setEmail('mateusz@gmail.com');
-        $user->setFirstname('Mateusz');
-        $user->setLastname('Wrzaszczak');
-        $user->setAddress('Kościelna');
-        $user->setPhone('123456789');
-        $user->setCity('Niegów');
-        $user->setPostcode('07-230');
-        $user->setCompany('Brak');
-        $user->setNip('123123');
-        $user->setIdGroup(1);
-        $password = $this->encoder->encodePassword($user, 'mateusz');
-        $user->setPassword($password);
-        $this->entityManager->persist($user);
+        //Dodanie 3 testowych użytkowników
+
+        $users = [
+          [
+              'mail' => 'mateusz@gmail.com',
+              'firstname' => 'Mateusz',
+              'lastname' => 'Wrzaszczak',
+              'address' => 'Kościelna',
+              'phone' => '123321123',
+              'city'=>'Niegów',
+              'postcode'=>'01-111',
+              'company'=>'Firma',
+              'nip'=>'123123123',
+              'group'=>1,
+              'roles'=>['ROLE_USER']
+          ],
+            [
+              'mail' => 'admin@gmail.com',
+              'firstname' => 'Admin',
+              'lastname' => 'Admin',
+              'address' => 'Kościelna',
+              'phone' => '123321123',
+              'city'=>'Niegów',
+              'postcode'=>'01-111',
+              'company'=>'Firma',
+              'nip'=>'123123123',
+              'group'=>1,
+              'roles'=>['ROLE_ADMIN']
+          ],
+            [
+              'mail' => 'superadmin@gmail.com',
+              'firstname' => 'SuperAdmin',
+              'lastname' => 'Admin',
+              'address' => 'Kościelna',
+              'phone' => '123321123',
+              'city'=>'Niegów',
+              'postcode'=>'01-111',
+              'company'=>'Firma',
+              'nip'=>'123123123',
+              'group'=>1,
+              'roles'=>['ROLE_SUPERADMIN']
+          ]
+        ];
+        foreach ($users as $userToCreate) {
+            $user = new Users();
+            $user->setEmail($userToCreate['mail']);
+            $user->setFirstname($userToCreate['firstname']);
+            $user->setLastname($userToCreate['lastname']);
+            $user->setAddress($userToCreate['address']);
+            $user->setPhone($userToCreate['phone']);
+            $user->setCity($userToCreate['city']);
+            $user->setPostcode($userToCreate['postcode']);
+            $user->setCompany($userToCreate['company']);
+            $user->setNip($userToCreate['nip']);
+            $user->setIdGroup(1);
+            $user->setRoles($userToCreate['roles']);
+            $password = $this->encoder->encodePassword($user, 'password');
+            $user->setPassword($password);
+            $this->entityManager->persist($user);
+        }
         $this->entityManager->flush();
     }
 }

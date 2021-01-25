@@ -247,6 +247,11 @@ class Users implements UserInterface
      */
     private $id_group;
 
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $roles;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -254,7 +259,21 @@ class Users implements UserInterface
 
     public function getRoles()
     {
-        return ['ROLE_USER'];
+        $roles = $this->roles;
+        $roles[] = 'ROLE_USER';
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): void
+    {
+        $this->roles = $roles;
+    }
+
+    public function addRole(string $role)
+    {
+        if(in_array($role, $this->roles) === false) {
+            $this->roles[] = $role;
+        }
     }
 
     public function getSalt()
