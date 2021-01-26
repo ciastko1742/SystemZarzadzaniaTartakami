@@ -233,7 +233,7 @@ class Users implements UserInterface
     private $phone;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", length=256, unique=true)
      */
     private $email;
 
@@ -245,7 +245,7 @@ class Users implements UserInterface
     /**
      * @ORM\Column(type="integer")
      */
-    private $id_group;
+    private $id_group = 1;
 
     /**
      * @ORM\Column(type="array")
