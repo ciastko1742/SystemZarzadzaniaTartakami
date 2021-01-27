@@ -18,11 +18,6 @@ class Material
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $id_type;
-
-    /**
      * @ORM\Column(type="text")
      */
     private $name;
@@ -32,18 +27,35 @@ class Material
      */
     private $priceM3;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="products")
+     */
+    private $type;
+
+    /**
+     * @return mixed
+     */
+    public function getTypes() : ?Type
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param Type|null $type
+     * @return $this
+     */
+    public function setTypes(?Type $type): self
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
     }
-    public function getIdType()
-    {
-        return $this->id_type;
-    }
-    public function setIdType($id_type): void
-    {
-        $this->id_type = $id_type;
-    }
+
     public function getName()
     {
         return $this->name;

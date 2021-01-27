@@ -15,6 +15,6 @@ class ProductController extends AbstractController
      * @Route("/welcome", name="welcome")
      */
     public function index():Response{
-        return new Response('Hello', 200);
+        return $this->render('product/index.html.twig');
     }
 }
