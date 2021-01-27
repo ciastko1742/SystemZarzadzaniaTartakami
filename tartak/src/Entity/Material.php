@@ -33,6 +33,18 @@ class Material
      */
     private $type;
 
+    private $calculations;
+
+    public function __construct()
+    {
+        $this->calculations = new ArrayCollection();
+    }
+
+    public function getCalculations() : Collection
+    {
+        return $this->calculations;
+    }
+
     /**
      * @return mixed
      */

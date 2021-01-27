@@ -18,16 +18,26 @@ class Offer
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     * @ORM\ManyToOne(targetEntity="App\Entity\Calculation", inversedBy="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Calculation", inversedBy="offers")
      */
-    private $id_calculation;
+    private $calculation;
 
     /**
-     * @ORM\Column(type="integer")
-     * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="offers")
      */
-    private $id_user;
+    private $user;
+
+    private $carts;
+
+    public function __construct()
+    {
+        $this->carts = new ArrayCollection();
+    }
+
+    public function getCarts() : Collection
+    {
+        return $this->Carts;
+    }
 
     public function getId(): ?int
     {

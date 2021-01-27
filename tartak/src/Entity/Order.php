@@ -19,10 +19,9 @@ class Order
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     * @ORM\ManyToOne(targetEntity="App\Entity\Cart", inversedBy="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Cart", inversedBy="orders")
      */
-    private $id_cart;
+    private $cart;
 
     public function getId(): ?int
     {
