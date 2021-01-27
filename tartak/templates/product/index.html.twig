@@ -10,5 +10,10 @@
 
 <div class="example-wrapper">
 Produkty
+    <ul class="list-group">
+        {% for product in products %}
+            <li class="list-group-item">{{ product.getName() }} - {{ product.getType().name }}</li>
+        {% endfor %}
+    </ul>
 </div>
 {% endblock %}
