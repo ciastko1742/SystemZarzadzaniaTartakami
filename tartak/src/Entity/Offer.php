@@ -19,11 +19,13 @@ class Offer
 
     /**
      * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Calculation", inversedBy="id")
      */
     private $id_calculation;
 
     /**
      * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="id")
      */
     private $id_user;
 

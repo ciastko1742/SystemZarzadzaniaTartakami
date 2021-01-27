@@ -18,6 +18,7 @@ class Material
     private $id;
 
     /**
+
      * @ORM\Column(type="text")
      */
     private $name;
