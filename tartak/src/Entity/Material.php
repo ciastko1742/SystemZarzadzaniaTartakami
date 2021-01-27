@@ -29,14 +29,14 @@ class Material
     private $priceM3;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="products")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="materials")
      */
     private $type;
 
     /**
      * @return mixed
      */
-    public function getTypes() : ?Type
+    public function getType() : ?Type
     {
         return $this->type;
     }
@@ -45,7 +45,7 @@ class Material
      * @param Type|null $type
      * @return $this
      */
-    public function setTypes(?Type $type): self
+    public function setType(?Type $type): self
     {
         $this->type = $type;
         return $this;

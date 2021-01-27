@@ -31,6 +31,10 @@ class Type
         $this->materials = new ArrayCollection();
     }
 
+    public function __toString(){
+        return $this->name;
+    }
+
     public function getMaterials() : Collection
     {
         return $this->materials;
