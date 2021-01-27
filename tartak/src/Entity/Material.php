@@ -19,6 +19,7 @@ class Material
 
     /**
      * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="id")
      */
     private $id_type;
 

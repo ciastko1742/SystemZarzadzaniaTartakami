@@ -19,6 +19,7 @@ class Calculation
 
     /**
      * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Material", inversedBy="id")
      */
     private $id_material;
 

@@ -20,6 +20,7 @@ class Order
 
     /**
      * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Cart", inversedBy="id")
      */
     private $id_cart;
 

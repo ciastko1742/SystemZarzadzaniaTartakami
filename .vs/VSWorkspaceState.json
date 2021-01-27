@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\tartak",
+    "\\tartak\\src",
+    "\\tartak\\src\\Controller",
+    "\\tartak\\src\\DataFixtures",
+    "\\tartak\\src\\Entity",
+    "\\tartak\\src\\Repository"
+  ],
+  "SelectedNode": "\\tartak\\src\\Entity\\Order.php",
+  "PreviewInSolutionExplorer": false
+}
