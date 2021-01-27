@@ -2,12 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\tartak",
-    "\\tartak\\src",
-    "\\tartak\\src\\Controller",
-    "\\tartak\\src\\DataFixtures",
-    "\\tartak\\src\\Entity",
-    "\\tartak\\src\\Repository"
+    "\\tartak\\templates",
+    "\\tartak\\templates\\admin",
+    "\\tartak\\templates\\cart",
+    "\\tartak\\templates\\login",
+    "\\tartak\\templates\\order",
+    "\\tartak\\templates\\product",
+    "\\tartak\\templates\\user",
+    "\\tartak\\tests"
   ],
-  "SelectedNode": "\\tartak\\src\\Entity\\Order.php",
+  "SelectedNode": "\\tartak\\src\\Controller\\UserController.php",
   "PreviewInSolutionExplorer": false
 }
