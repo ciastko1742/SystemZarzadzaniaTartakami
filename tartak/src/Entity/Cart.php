@@ -18,9 +18,9 @@ class Cart
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Offer", inversedBy="carts")
      */
-    private $id_offer;
+    private $offer;
 
     /**
      * @ORM\Column(type="integer")
@@ -41,6 +41,18 @@ class Cart
      * @ORM\Column(type="date")
      */
     private $date_add;
+
+    private $orders;
+
+    public function __construct()
+    {
+        $this->orders = new ArrayCollection();
+    }
+
+    public function getOrders() : Collection
+    {
+        return $this->orders;
+    }
 
     public function getId(): ?int
     {

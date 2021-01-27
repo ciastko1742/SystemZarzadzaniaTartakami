@@ -29,9 +29,21 @@ class Material
     private $priceM3;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="products")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="materials")
      */
     private $type;
+
+    private $calculations;
+
+    public function __construct()
+    {
+        $this->calculations = new ArrayCollection();
+    }
+
+    public function getCalculations() : Collection
+    {
+        return $this->calculations;
+    }
 
     /**
      * @return mixed

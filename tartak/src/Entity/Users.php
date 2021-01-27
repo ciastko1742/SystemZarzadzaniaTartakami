@@ -252,6 +252,18 @@ class Users implements UserInterface
      */
     private $roles;
 
+    private $offers;
+
+    public function __construct()
+    {
+        $this->offers = new ArrayCollection();
+    }
+
+    public function getOffers() : Collection
+    {
+        return $this->offers;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

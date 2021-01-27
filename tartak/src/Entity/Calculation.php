@@ -18,10 +18,9 @@ class Calculation
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     * @ORM\ManyToOne(targetEntity="App\Entity\Material", inversedBy="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Material", inversedBy="calculations")
      */
-    private $id_material;
+    private $material;
 
     /**
      * @ORM\Column(type="integer")
@@ -47,6 +46,18 @@ class Calculation
      * @ORM\Column(type="integer")
      */
     private $price;
+
+    private $offers;
+
+    public function __construct()
+    {
+        $this->offers = new ArrayCollection();
+    }
+
+    public function getOffers() : Collection
+    {
+        return $this->offers;
+    }
 
     public function getId(): ?int
     {
