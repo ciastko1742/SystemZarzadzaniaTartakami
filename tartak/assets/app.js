@@ -13,6 +13,12 @@ import './bootstrap';
 
 var $ = require('jquery');
 
+require('bootstrap');
+
 $(document).ready(function() {
-    alert('dziala');
+
+    // $('.addToCartModal').on('show.bs.modal', function () {
+    //         console.log('work');
+    // })
+
 });

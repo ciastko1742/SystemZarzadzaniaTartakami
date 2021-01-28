@@ -20,7 +20,9 @@ Produkty
                     <p class="card-text">Rodzaj drzewa: <b>{{ product.getType().getName() }}</b></p>
                     <p class="card-text">Cena za m3: <b>{{ product.getPriceM3() }}</b></p><hr>
                     {% if app.user %}
-                    <a href="#" class="btn btn-primary">Dodaj do koszyka</a>
+                        <button type="button" class="btn btn-primary addToCartModal" data-toggle="modal" data-target="#addToCartModal">
+                            Dodaj do koszyka
+                        </button>
                     {% else %}
                         Zaloguj się aby złożyć zamówienie
                     {% endif %}
@@ -30,6 +32,30 @@ Produkty
         {% endfor %}
 </div>
 </div>
+
+    <div class="modal fade" id="addToCartModal" tabindex="-1" role="dialog" aria-labelledby="addToCartModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addToCartModalLabel">Dodawanie produktu do koszyka</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/cart/add" method="post">
+                        <input type="text" name="name">
+                        <button type="submit">Test</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+                    <button type="button" class="btn btn-primary">Dodaj</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block javascripts %}
