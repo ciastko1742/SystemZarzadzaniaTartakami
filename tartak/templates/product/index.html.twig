@@ -26,6 +26,10 @@ Produkty
                     {% else %}
                         Zaloguj się aby złożyć zamówienie
                     {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <a href="/product/edit/{{ product.getId() }}">Edytuj</a>
+                    <a href="#" id="delete-product" class="btn btn-danger delete-product" data-id="{{ product.getId() }}">Usuń</a>
+                    {% endif %}
                 </div>
             </div>
             </div>
@@ -60,4 +64,5 @@ Produkty
 
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
+    <script src="/js/main2.js"></script>
 {% endblock %}

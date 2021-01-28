@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class UserController extends AbstractController
 {
@@ -35,7 +36,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("user/edit/{id}", name="user_edit")
-     * Method({"GET", "POST"})
+     * @Method({"GET", "POST"})
      * @param Request $request
      * @param EntityManagerInterface $entityManager
      * @return Response
@@ -80,4 +81,18 @@ class UserController extends AbstractController
                 'form' => $form->createView()
             ));
 	}
+    /**
+     * @Route("/user/delete/{id}")
+     * @Method({"DELETE"})
+     */
+    public function delete(Request $request, $id) {
+      $user = $this->getDoctrine()->getRepository(Users::class)->find($id);
+
+      $entityManager = $this->getDoctrine()->getManager();
+      $entityManager->remove($user);
+      $entityManager->flush();
+
+      $response = new Response();
+      $response->send();
+    }
 }

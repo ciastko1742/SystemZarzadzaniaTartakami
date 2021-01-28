@@ -14,7 +14,13 @@
                         {% endfor %}
                     </li>
                 </ul>
+                <a href="/user/edit/{{ app.user.id }}">Edytuj dane</a>
+                <a href="#" id="delete-user" class="btn btn-danger delete-user" data-id="{{ app.user.id }}">Usuñ</a>
             </div>
         </div>
     </div>
+{% block javascripts %}
+    <script src="/js/main.js"></script>
+{% endblock %}
+
 {% endblock %}

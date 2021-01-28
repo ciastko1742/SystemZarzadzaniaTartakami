@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class AdminController extends AbstractController
 {
@@ -83,4 +84,18 @@ class AdminController extends AbstractController
                 'form' => $form->createView()
             ));
 	}
+   /**
+     * @Route("/product/delete/{id}")
+     * @Method({"DELETE"})
+     */
+    public function delete(Request $request, $id) {
+      $material = $this->getDoctrine()->getRepository(Material::class)->find($id);
+
+      $entityManager = $this->getDoctrine()->getManager();
+      $entityManager->remove($material);
+      $entityManager->flush();
+
+      $response = new Response();
+      $response->send();
+    }
 }
