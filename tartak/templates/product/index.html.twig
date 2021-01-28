@@ -10,10 +10,28 @@
 
 <div class="example-wrapper">
 Produkty
-    <ul class="list-group">
+<div class="row">
         {% for product in products %}
-            <li class="list-group-item">{{ product.getName() }} - {{ product.getType().name }}</li>
+            <div class="col-md-4">
+            <div class="card">
+                <img src="/images/empty.jpg" class="card-img-top img-fluid" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.getName() }}</h5>
+                    <p class="card-text">Rodzaj drzewa: <b>{{ product.getType().getName() }}</b></p>
+                    <p class="card-text">Cena za m3: <b>{{ product.getPriceM3() }}</b></p><hr>
+                    {% if app.user %}
+                    <a href="#" class="btn btn-primary">Dodaj do koszyka</a>
+                    {% else %}
+                        Zaloguj się aby złożyć zamówienie
+                    {% endif %}
+                </div>
+            </div>
+            </div>
         {% endfor %}
-    </ul>
 </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
 {% endblock %}
