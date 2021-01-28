@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello OrderController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+Użytkownicy
+<div class="row">
+        {% for user in users %}
+            <div class="col-md-12" style="padding: 10px;">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ user.getFirstname() }} {{ user.getLastname() }}</h5>
+                    <p class="card-text">Firma: <b>{{ user.getCompany() }}</b></p>
+                    <p class="card-text">Nip: <b>{{ user.getNip() }}</b></p>
+                    <p class="card-text">E-mail: <b>{{ user.getEmail() }}</b></p>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <a style="width: 49%; margin-top: 10px;" href="/user/edit/{{ user.getId() }}" class="btn btn-secondary delete-user">Edytuj</a>
+                    <a style="width: 49%; margin-top: 10px;" href="#" id="delete-user" class="btn btn-danger delete-product" data-id="{{ user.getId() }}">Usuń</a>
+                    {% endif %}
+                </div>
+            </div>
+            </div>
+        {% endfor %}
+</div>
+</div>
+
+    
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    <script src="/js/main3.js"></script>
+{% endblock %}

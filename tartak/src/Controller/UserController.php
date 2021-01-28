@@ -33,6 +33,15 @@ class UserController extends AbstractController
             'controller_name' => 'UserController',
         ]);
     }
+    /**
+     * @Route("/all", name="all_users")
+     */
+    public function showAll(UsersRepository $usersRepository):Response{
+        return $this->render('user/all.html.twig',
+        [
+            'users'=>$usersRepository->findAll()
+        ]);
+    }
 
     /**
      * @Route("user/edit/{id}", name="user_edit")
