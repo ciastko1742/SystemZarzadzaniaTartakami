@@ -24,6 +24,7 @@ class Calculation
      */
     private $material;
 
+
     /**
      * @ORM\Column(type="integer")
      */
@@ -65,14 +66,24 @@ class Calculation
     {
         return $this->id;
     }
-    public function getIdMaterial()
+
+
+    /**
+     * @return mixed
+     */
+    public function getMaterial()
     {
-        return $this->id_material;
+        return $this->material;
     }
-    public function setIdMaterial($id_material): void
+
+    /**
+     * @param mixed $material
+     */
+    public function setMaterial($material): void
     {
-        $this->id_material = $id_material;
-	}
+        $this->material = $material;
+    }
+
     public function getLength()
     {
         return $this->length;
