@@ -9,6 +9,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -52,4 +55,32 @@ class AdminController extends AbstractController
             'form'=>$form->createView()
         ]);
     }
+   /**
+     * @Route("product/edit/{id}", name="product_edit")
+     * Method({"GET", "POST"})
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    public function edit(Request $request, $id){
+        $material = new Material();
+        $material = $this->getDoctrine()->getRepository(Material::class)->find($id);
+        $form = $this->createFormBuilder($material)
+        ->add('name', TextType::class)
+            ->add('priceM3', NumberType::class)
+            ->add('type')
+            ->getForm();
+
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->flush();
+
+                return $this->redirectToRoute('admin');
+			}
+            return $this->render('admin/edit.html.twig', array(
+                'form' => $form->createView()
+            ));
+	}
 }
