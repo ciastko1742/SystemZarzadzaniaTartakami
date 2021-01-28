@@ -71,7 +71,7 @@ class Calculation
     /**
      * @return mixed
      */
-    public function getMaterial()
+    public function getMaterial() : ?Material
     {
         return $this->material;
     }
@@ -124,4 +124,18 @@ class Calculation
     {
         $this->price = $price;
 	}
+
+    /**
+     * @return float|null
+     */
+	public function countPrice(): ?float
+    {
+        if($this->material && $this->height && $this->width
+        && $this->length && $this->quantity){
+               $cbm = $this->height * $this->width * $this->length;
+               $price = $this->quantity * $cbm * $this->getMaterial()->getPriceM3();
+                return round($price, 2);
+        }
+        return null;
+    }
 }

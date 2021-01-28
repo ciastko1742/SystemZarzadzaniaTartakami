@@ -16,9 +16,12 @@ var $ = require('jquery');
 require('bootstrap');
 
 $(document).ready(function() {
-
-    // $('.addToCartModal').on('show.bs.modal', function () {
-    //         console.log('work');
-    // })
-
+    $('.addToCartModal').on('click', function () {
+        let product_id = $(this).attr('data-id');
+        let product_name = $(this).attr('data-product_name');
+        let product_type = $(this).attr('data-product_type');
+        console.log(product_name);
+        $('#material').val(product_id);
+        $('#product_name').html(product_name+' - '+product_type);
+    })
 });

@@ -20,11 +20,11 @@ Produkty
                     <p class="card-text">Rodzaj drzewa: <b>{{ product.getType().getName() }}</b></p>
                     <p class="card-text">Cena za m3: <b>{{ product.getPriceM3() }}</b></p><hr>
                     {% if app.user %}
-                        <button type="button" class="btn btn-primary addToCartModal" data-toggle="modal" data-target="#addToCartModal">
+                        <button type="button" class="btn btn-primary addToCartModal" data-toggle="modal" data-target="#addToCartModal" data-id="{{ product.getId() }}" data-product_name="{{ product.getName() }}" data-product_type="{{ product.getType().getName() }}">
                             Dodaj do koszyka
                         </button>
                     {% else %}
-                        Zaloguj się aby złożyć zamówienie
+                        Zaloguj się, aby złożyć zamówienie
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN') %}
                     <a href="/product/edit/{{ product.getId() }}">Edytuj</a>
@@ -46,16 +46,46 @@ Produkty
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <form action="/cart/add" method="post">
                 <div class="modal-body">
-                    <form action="/cart/add" method="post">
-                        <input type="text" name="name">
-                        <button type="submit">Test</button>
-                    </form>
+                        <h2 id="product_name"></h2><hr>
+                        <input type="hidden" id="material" name="material">
+                        <div class="form-group">
+                            <label for="length_input">Długość</label>
+                            <input type="number" id="length_input"  step="0.01" name="length" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="width_input">Szerokość</label>
+                            <input type="number" id="width_input"  step="0.01" name="width" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="height_input">Grubość</label>
+                            <input type="number" id="height_input" step="0.01" name="height" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity_input">Ilość sztuk</label>
+                            <input type="number" id="quantity_input" step="1" min="1" name="quantity" class="form-control">
+                        </div><hr>
+                        <div class="form-group">
+                            <label for="transport_select">Metoda transportu</label>
+                            <select name="transport" class="form-control">
+                                {% for transport in transports %}
+                                    <option value="{{ transport.getId() }}">{{ transport.getName() }} - {{ transport.getPrice() }}zł</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <hr>
+                        <span class="text-center">
+                            <p>W tym zestawieniu cena wynosi:</p>
+                            <p id="product_price">0 zł</p>
+                        </span>
+                        <hr>
                 </div>
                 <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary float-left">Dodaj do koszyka</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
-                    <button type="button" class="btn btn-primary">Dodaj</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>

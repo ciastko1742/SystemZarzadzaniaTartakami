@@ -27,6 +27,14 @@ class Transport
      */
     private $price;
 
+    /**
+     * @param mixed $price
+     */
+    public function setPrice($price): void
+    {
+        $this->price = $price;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -25,6 +25,38 @@ class Offer
     private $calculation;
 
     /**
+     * @return mixed
+     */
+    public function getCalculation()
+    {
+        return $this->calculation;
+    }
+
+    /**
+     * @param mixed $calculation
+     */
+    public function setCalculation($calculation): void
+    {
+        $this->calculation = $calculation;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user): void
+    {
+        $this->user = $user;
+    }
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="offers")
      */
     private $user;

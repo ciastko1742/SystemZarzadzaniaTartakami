@@ -18,3 +18,17 @@ product.addEventListener('click', (e) => {
         });
     }
 });
+
+$(document).ready(function() {
+    $('#addToCartModal').on('show.bs.modal', function () {
+        console.log('dzaiala')
+        let modal_btn = $('*[data-target="#addToCartModal"]')
+        let product_id = modal_btn.attr('data-id');
+        let product_name = modal_btn.attr('data-product_name');
+        let product_type = modal_btn.attr('data-product_type');
+
+        $('#length_input').val(product_id);
+        $('#product_name').val(product_name+' - '+product_type);
+
+    })
+});
