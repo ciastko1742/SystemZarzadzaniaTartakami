@@ -27,8 +27,8 @@ Produkty
                         Zaloguj się, aby złożyć zamówienie
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN') %}
-                    <a href="/product/edit/{{ product.getId() }}">Edytuj</a>
-                    <a href="#" id="delete-product" class="btn btn-danger delete-product" data-id="{{ product.getId() }}">Usuń</a>
+                    <a style="width: 75%; margin-top: 10px;" href="/product/edit/{{ product.getId() }}" class="btn btn-secondary delete-product">Edytuj</a>
+                    <a style="width: 75%; margin-top: 10px;" href="#" id="delete-product" class="btn btn-danger delete-product" data-id="{{ product.getId() }}">Usuń</a>
                     {% endif %}
                 </div>
             </div>

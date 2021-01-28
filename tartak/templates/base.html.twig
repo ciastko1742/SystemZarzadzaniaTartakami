@@ -33,6 +33,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('add_new_product') }}">Dodaj nowy produkt</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/all">Lista użytkowników</a>
+                        </li>
                     {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('logout') }}">Logout</a>
@@ -40,6 +43,9 @@
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('login') }}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Rejestracja</a>
                     </li>
                 {% endif %}
             </ul>

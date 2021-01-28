@@ -33,6 +33,15 @@ class UserController extends AbstractController
             'controller_name' => 'UserController',
         ]);
     }
+    /**
+     * @Route("/all", name="all_users")
+     */
+    public function showAll(UsersRepository $usersRepository):Response{
+        return $this->render('user/all.html.twig',
+        [
+            'users'=>$usersRepository->findAll()
+        ]);
+    }
 
     /**
      * @Route("user/edit/{id}", name="user_edit")
@@ -46,7 +55,7 @@ class UserController extends AbstractController
         $user = $this->getDoctrine()->getRepository(Users::class)->find($id);
         $form = $this->createFormBuilder($user)
         ->add('firstname', TextType::class, [
-                'label' => 'Imiê'
+                'label' => 'ImiÄ™'
             ])
             ->add('lastname', TextType::class)
             ->add('company', TextType::class)
@@ -58,8 +67,8 @@ class UserController extends AbstractController
             ->add('email', EmailType::class)
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options' => ['label' => 'Has³o'],
-                'second_options' => ['label' => 'Powtórz has³o']
+                'first_options' => ['label' => 'HasÅ‚o'],
+                'second_options' => ['label' => 'PowtÃ³rz hasÅ‚o']
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Zapisz',
