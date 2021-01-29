@@ -46,6 +46,29 @@ class Cart
     private $ordered=0;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Transport", inversedBy="carts")
+     */
+    private $transport;
+
+    /**
+     * @return mixed
+     */
+    public function getTransport() : ?Transport
+    {
+        return $this->transport;
+    }
+
+    /**
+     * @param Transport|null $transport
+     * @return Transport|null
+     */
+    public function setTransport(?Transport $transport): ?Transport
+    {
+        $this->transport = $transport;
+        return $this->transport;
+    }
+
+    /**
      * @return mixed
      */
     public function getOrdered()

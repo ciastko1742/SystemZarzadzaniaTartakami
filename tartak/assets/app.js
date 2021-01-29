@@ -23,5 +23,22 @@ $(document).ready(function() {
         console.log(product_name);
         $('#material').val(product_id);
         $('#product_name').html(product_name+' - '+product_type);
-    })
+    });
+
+    $('select[name="transport"]').change(function(){
+        var id = $(this).val();
+        $.ajax({
+            url: '/cart/count_price',
+            type: 'POST',
+            data: {
+                transport_id: id
+            },
+            success:function(data){
+                $('#sumOfAll').html(data.sum+" zł");
+            }
+        });
+    });
+
+
+
 });

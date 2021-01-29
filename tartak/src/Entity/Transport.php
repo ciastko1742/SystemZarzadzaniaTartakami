@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TransportRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,6 +28,21 @@ class Transport
      * @ORM\Column(type="integer")
      */
     private $price;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Cart", mappedBy="transport")
+     */
+    private $carts;
+
+    public function __construct()
+    {
+        $this->carts = new ArrayCollection();
+    }
+
+    public function getCarts() : ?Collection
+    {
+        return $this->carts;
+    }
 
     /**
      * @param mixed $price

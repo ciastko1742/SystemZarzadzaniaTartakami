@@ -5,9 +5,12 @@ namespace App\Controller;
 use App\Entity\Calculation;
 use App\Entity\Cart;
 use App\Entity\Offer;
+use App\Entity\Order;
+use App\Entity\Transport;
 use App\Repository\CartRepository;
 use App\Repository\MaterialRepository;
 use App\Repository\OfferRepository;
+use App\Repository\TransportRepository;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,12 +25,18 @@ class CartController extends AbstractController
     /**
      * @Route("/cart", name="cart")
      */
-    public function index(CartRepository $cartRepository, OfferRepository $offerRepository): Response
+    public function index(CartRepository $cartRepository, OfferRepository $offerRepository, TransportRepository $transportRepository): Response
     {
         $cart = $cartRepository->findByUser($this->getUser());
+        $sumPriceForProduct = $cart ? $offerRepository->sum($cart) : 0;
+        $transportPrice = ($cart && $cart->getTransport()) ? $cart->getTransport()->getPrice() : 0;
+        $sumPriceForAll = $transportPrice + $sumPriceForProduct;
+
         return $this->render('cart/index.html.twig', [
             'cart' => $cart,
-            'sumPrice'=>$offerRepository->sum($cart)
+            'sumPriceForProduct'=> $sumPriceForProduct,
+            'transports'=>$transportRepository->findAll(),
+            'sumPriceForAll' => $sumPriceForAll
         ]);
     }
 
@@ -90,6 +99,62 @@ class CartController extends AbstractController
             }catch (UniqueConstraintViolationException $exception) {
                 $session->getFlashBag()->add('danger', 'Błąd usuwania z koszyka!');
             }
+        }
+        return $this->redirectToRoute("cart");
+    }
+
+    /**
+     * @Route("/cart/count_price", name="countPrice")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function countPrice(Request $request){
+
+        $transport = $this->getDoctrine()->getRepository(Transport::class)->find($request->request->get("transport_id"));
+
+        $cart = $this->getDoctrine()->getRepository(Cart::class)->findByUser($this->getUser());
+        $sumPriceForProduct = $this->getDoctrine()->getRepository(Offer::class)->sum($cart);
+        $sumPriceForAll = $transport->getPrice() + $sumPriceForProduct;
+
+        return $this->json(['sum'=>$sumPriceForAll]);
+
+    }
+
+    /**
+     * @Route("/cart/create_order_or_save", name="createOrderOrSave")
+     * @param Request $request
+     */
+    public function createOrderOrSave(Request $request){
+        $createOrder = $request->request->get("create_order");
+
+        $transport = $this->getDoctrine()->getRepository(Transport::class)->find($request->request->get("transport"));
+
+        $cart = $this->getDoctrine()->getRepository(Cart::class)->findByUser($this->getUser());
+        $sumPriceForProduct = $this->getDoctrine()->getRepository(Offer::class)->sum($cart);
+        $sumPriceForAll = $transport->getPrice() + $sumPriceForProduct;
+
+        $cart->setFinalPrice($sumPriceForAll);
+        $cart->setTransport($transport);
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+
+        $message = "Zapisano w koszyku.";
+        if(isset($createOrder)){
+            $cart->setOrdered(1);
+            $order = new Order();
+            $order->setDateAdd(new \DateTime());
+            $order->setCart($cart);
+
+            $entityManager->persist($order);
+            $message = "Złożono zamówienie";
+        }
+        $entityManager->persist($cart);
+        try {
+            $entityManager->flush();
+            $this->addFlash("success",$message);
+        }catch (UniqueConstraintViolationException $exception) {
+            $this->addFlash('danger', 'Błąd!');
         }
         return $this->redirectToRoute("cart");
     }

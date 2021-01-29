@@ -11,8 +11,7 @@
 <div class="example-wrapper">
     <h1>Mój koszyk</h1>
 
-    Dodane produkty
-
+    {% if cart %}
     <table class="table table-striped">
         <thead><tr><th>Nazwa</th><th>Cena</th><th></th></tr></thead>
         <tbody>
@@ -30,8 +29,33 @@
     {% endfor %}
         </tbody>
         <tbody>
-            <tr><td class="text-right">Suma:</td><td class="text-center"><b>{{ sumPrice }} zł</b></td><td></td></tr>
+            <tr><td class="text-right">Łącznie za produkty:</td><td class="text-center"><b>{{ sumPriceForProduct }} zł</b></td><td></td></tr>
         </tbody>
     </table>
+    <h4>Metody transportu</h4>
+    <form method="post" action="/cart/create_order_or_save">
+        <div class="form-group">
+            <label for="transport_select">Wybierz metodę</label>
+            <select name="transport" class="form-control">
+                {% for transport in transports %}
+                    <option value="{{ transport.getId() }}" {% if cart.getTransport() and cart.getTransport().getId()==transport.getId() %} selected="selected" {% endif %}>{{ transport.getName() }} - {{ transport.getPrice() }}zł</option>
+                {% endfor %}
+            </select>
+        </div>
+        <hr>
+
+        <p style="font-size: 20pt">Łącznie za wszystko: <b id="sumOfAll">{{ sumPriceForAll }} zł</b></p>
+            <hr>
+        <div class="text-center">
+            <input type="submit" class="btn btn-primary btn-sm" value="Zapisz ustawienia koszyka" name="save_cart">
+            <input type="submit" class="btn btn-success btn-sm" value="Złóż zamówienie" name="create_order">
+        </div>
+    </form>
+    {% else %}
+        <h3>Twój koszyk jest pusty</h3>
+    {% endif %}
 </div>
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
 {% endblock %}
