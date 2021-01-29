@@ -63,6 +63,9 @@ class Cart
 
     private $orders;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Offer", mappedBy="cart")
+     */
     private $offers;
 
     /**

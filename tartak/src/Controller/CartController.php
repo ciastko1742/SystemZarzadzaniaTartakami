@@ -7,6 +7,7 @@ use App\Entity\Cart;
 use App\Entity\Offer;
 use App\Repository\CartRepository;
 use App\Repository\MaterialRepository;
+use App\Repository\OfferRepository;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,10 +22,12 @@ class CartController extends AbstractController
     /**
      * @Route("/cart", name="cart")
      */
-    public function index(): Response
+    public function index(CartRepository $cartRepository, OfferRepository $offerRepository): Response
     {
+        $cart = $cartRepository->findByUser($this->getUser());
         return $this->render('cart/index.html.twig', [
-            'controller_name' => 'CartController',
+            'cart' => $cart,
+            'sumPrice'=>$offerRepository->sum($cart)
         ]);
     }
 
@@ -70,5 +73,24 @@ class CartController extends AbstractController
         }
 
         return $this->redirectToRoute("welcome");
+    }
+
+    /**
+     * @Route("/cart/delete", name="delete_offer")
+     * @param Request $request
+     */
+    public function delete(Request $request, Session $session){
+        if($offer = $this->getDoctrine()->getRepository(Offer::class)->find($request->request->get('offer'))){
+            $entityManager = $this->getDoctrine()->getManager();
+
+            try {
+                $entityManager->remove($offer);
+                $entityManager->flush();
+                $session->getFlashBag()->add('success', sprintf('Usunięto z koszyka!'));
+            }catch (UniqueConstraintViolationException $exception) {
+                $session->getFlashBag()->add('danger', 'Błąd usuwania z koszyka!');
+            }
+        }
+        return $this->redirectToRoute("cart");
     }
 }

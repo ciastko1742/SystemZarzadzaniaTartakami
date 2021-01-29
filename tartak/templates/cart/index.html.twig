@@ -12,5 +12,26 @@
     <h1>Mój koszyk</h1>
 
     Dodane produkty
+
+    <table class="table table-striped">
+        <thead><tr><th>Nazwa</th><th>Cena</th><th></th></tr></thead>
+        <tbody>
+    {% for offer in cart.getOffers() %}
+            <tr>
+                <td>{{ offer.getCalculation().getMaterial.getName() }} - {{ offer.getCalculation().getMaterial.getType().getName() }}</td>
+                <td>{{ offer.getCalculation().getPrice() }} zł</td>
+                <td>
+                    <form action="/cart/delete" method="post">
+                        <input type="hidden" name="offer" value="{{ offer.getId() }}">
+                        <button class="btn btn-danger btn-sm" type="submit">Usuń</button>
+                    </form>
+                </td>
+            </tr>
+    {% endfor %}
+        </tbody>
+        <tbody>
+            <tr><td class="text-right">Suma:</td><td class="text-center"><b>{{ sumPrice }} zł</b></td><td></td></tr>
+        </tbody>
+    </table>
 </div>
 {% endblock %}

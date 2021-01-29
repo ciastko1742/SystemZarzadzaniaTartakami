@@ -62,24 +62,26 @@ class Offer
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Cart", inversedBy="carts")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Cart", inversedBy="offers")
      */
     private $cart;
 
     /**
      * @return mixed
      */
-    public function getCart()
+    public function getCart(): ?Cart
     {
         return $this->cart;
     }
 
     /**
-     * @param mixed $cart
+     * @param Cart|null $cart
+     * @return Offer
      */
-    public function setCart($cart): void
+    public function setCart(?Cart $cart): self
     {
         $this->cart = $cart;
+        return $this;
     }
 
 

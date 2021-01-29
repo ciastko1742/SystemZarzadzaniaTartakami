@@ -88,42 +88,52 @@ class Calculation
     {
         return $this->length;
     }
+
     public function setLength($length): void
     {
         $this->length = $length;
 	}
+
     public function getWidth()
     {
         return $this->width;
     }
+
     public function setWidth($width): void
     {
         $this->width = $width;
 	}
+
     public function getHeight()
     {
         return $this->height;
     }
+
     public function setHeight($height): void
     {
         $this->height = $height;
 	}
+
     public function getQuantity()
     {
         return $this->quantity;
     }
+
     public function setQuantity($quantity): void
     {
         $this->quantity = $quantity;
 	}
+
     public function getPrice()
     {
-        return $this->price;
+        return $this->price/100;
     }
+
     public function setPrice($price): void
     {
-        $this->price = $price;
+        $this->price = $price*100;
 	}
+
 
     /**
      * @return float|null
@@ -132,9 +142,9 @@ class Calculation
     {
         if($this->material && $this->height && $this->width
         && $this->length && $this->quantity){
-               $cbm = $this->height * $this->width * $this->length;
-               $price = $this->quantity * $cbm * $this->getMaterial()->getPriceM3();
-                return round($price, 2);
+           $cbm = ($this->height/100) * ($this->width/100) * ($this->length/100);
+           $price = $this->quantity * $cbm * $this->getMaterial()->getPriceM3();
+            return round($price, 2);
         }
         return null;
     }
