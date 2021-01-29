@@ -39,6 +39,20 @@ $(document).ready(function() {
         });
     });
 
+    $('#search_input').keyup(function () {
+        var text = $(this).val();
+        $.ajax({
+            url: '/product/search',
+            type: 'POST',
+            data: {
+                text: text
+            },
+            success:function(data){
+                $('#search_results').html(data);
+            }
+        });
+
+    });
 
 
 });

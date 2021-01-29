@@ -9,32 +9,11 @@
 </style>
 
 <div class="example-wrapper">
-Produkty
-<div class="row">
-        {% for product in products %}
-            <div class="col-md-4 pt-3">
-            <div class="card">
-                <img src="/images/empty.jpg" class="card-img-top img-fluid" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{ product.getName() }}</h5>
-                    <p class="card-text">Rodzaj drzewa: <b>{{ product.getType().getName() }}</b></p>
-                    <p class="card-text">Cena za m3: <b>{{ product.getPriceM3() }}</b></p><hr>
-                    {% if app.user %}
-                        <button type="button" class="btn btn-primary addToCartModal" data-toggle="modal" data-target="#addToCartModal" data-id="{{ product.getId() }}" data-product_name="{{ product.getName() }}" data-product_type="{{ product.getType().getName() }}">
-                            Dodaj do koszyka
-                        </button>
-                    {% else %}
-                        Zaloguj się, aby złożyć zamówienie
-                    {% endif %}
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <a style="width: 75%; margin-top: 10px;" href="/product/edit/{{ product.getId() }}" class="btn btn-secondary">Edytuj</a>
-                    <a style="width: 75%; margin-top: 10px;" href="#" id="delete-product" class="btn btn-danger delete-product" data-id="{{ product.getId() }}">Usuń</a>
-                    {% endif %}
-                </div>
-            </div>
-            </div>
-        {% endfor %}
-</div>
+<input type="text" class="form-control" placeholder="Wyszukaj materiał.." id="search_input">
+
+    <div id="search_results">
+        {% include '/product/product_list.html.twig' %}
+    </div>
 </div>
 
     <div class="modal fade" id="addToCartModal" tabindex="-1" role="dialog" aria-labelledby="addToCartModalLabel" aria-hidden="true">

@@ -42,8 +42,7 @@ class OrderController extends AbstractController
     public function orderDetails($id): Response
     {
         $order = $this->getDoctrine()->getRepository(Order::class)->find($id);
-        if(in_array("ROLE_ADMIN", $this->getUser()->getRoles()) || $this->getUser()->getId==$order->getCart()->getUser()->getId){
-
+        if(in_array("ROLE_ADMIN", $this->getUser()->getRoles()) || $this->getUser()->getId()==$order->getCart()->getUser()->getId()){
             return $this->render('order/details.html.twig', [
                 'order' => $order
             ]);

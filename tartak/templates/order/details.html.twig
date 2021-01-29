@@ -28,5 +28,23 @@
     <p>Wybrany transport: <b>{{ order.getCart().getTransport().getName() }}</b></p>
     <hr>
     <p class="float-right" style="font-size: 20pt">Łącznie cena: {{ order.getCart().getFinalPrice() }} zł</p>
+    {% if is_granted('ROLE_ADMIN') %}
+    <br><br><br><hr>
+
+    <div class="row">
+    <h5>Klient:</h5>
+    <table class="table table-striped">
+      <tr><th>Imię i nazwisko</th><td>{{ order.getCart().getUser().getFirstname }} {{ order.getCart().getUser().getLastname }}</td></tr>
+      <tr><th>Telefon</th><td>{{ order.getCart().getUser().getPhone() }} </td></tr>
+      <tr><th>E-mail</th><td>{{ order.getCart().getUser().getEmail() }} </td></tr>
+      <tr><th>Firma</th><td>{{ order.getCart().getUser().getCompany() }} </td></tr>
+      <tr><th>NIP</th><td>{{ order.getCart().getUser().getNIP() }} </td></tr>
+      <tr><th>Adres</th><td>{{ order.getCart().getUser().getAddress() }} </td></tr>
+      <tr><th>Kod pocztowy</th><td>{{ order.getCart().getUser().getPostCode() }} </td></tr>
+      <tr><th>Miasto</th><td>{{ order.getCart().getUser().getCity() }} </td></tr>
+    </table>
+    </div>
+
+    {% endif %}
   </div>
 {% endblock %}
