@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Calculation;
+use App\Entity\Cart;
 use App\Entity\Offer;
+use App\Repository\CartRepository;
 use App\Repository\MaterialRepository;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
@@ -11,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CartController extends AbstractController
@@ -29,12 +32,12 @@ class CartController extends AbstractController
      * @Route("/cart/add", name="add_to_cart")
      * @param Request $request
      */
-    public function addCart(Request $request, MaterialRepository $materialRepository, EntityManagerInterface $entityManager)
+    public function addCart(Request $request, MaterialRepository $materialRepository, EntityManagerInterface $entityManager, CartRepository $cartRepository, Session $session)
     {
         $calculation = new Calculation();
         $calculation->setHeight($request->request->get('height'));
         $calculation->setWidth($request->request->get('width'));
-        $calculation->setWidth($request->request->get('width'));
+        $calculation->setLength($request->request->get('length'));
         $calculation->setQuantity($request->request->get('quantity'));
         $material = $materialRepository->findOneBy(['id'=> $request->request->get('material')]);
         if($material){
@@ -44,19 +47,28 @@ class CartController extends AbstractController
             $calculation->setPrice($price);
         }
 
+        $cart = $cartRepository->findByUser($this->getUser());
+        if(!$cart){
+            $cart = new Cart();
+            $cart->setDateAdd(new \DateTime());
+            $cart->setUser($this->getUser());
+        }
+
         $offer = new Offer();
         $offer->setCalculation($calculation);
         $offer->setUser($this->getUser());
-
-
+        $offer->setCart($cart);
 
         try {
             $entityManager->persist($calculation);
+            $entityManager->persist($cart);
+            $entityManager->persist($offer);
             $entityManager->flush();
-            //$session->getFlashBag()->add('success', sprintf('Konto użytkownika % zostało pomyślnie stworzone', $user->getFirstname()));
+            $session->getFlashBag()->add('success', sprintf('Dodano % do koszyka!', $material->getName()));
         }catch (UniqueConstraintViolationException $exception) {
-            //$session->getFlashBag()->add('danger', 'Podany e-mail już istenieje w bazie systemu');
+            $session->getFlashBag()->add('danger', 'Błąd dodawania do koszyka!');
         }
 
+        return $this->redirectToRoute("welcome");
     }
 }

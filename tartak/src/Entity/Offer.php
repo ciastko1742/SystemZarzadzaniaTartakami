@@ -61,36 +61,31 @@ class Offer
      */
     private $user;
 
-    private $carts;
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Cart", inversedBy="carts")
+     */
+    private $cart;
 
-    public function __construct()
+    /**
+     * @return mixed
+     */
+    public function getCart()
     {
-        $this->carts = new ArrayCollection();
+        return $this->cart;
     }
 
-    public function getCarts() : Collection
+    /**
+     * @param mixed $cart
+     */
+    public function setCart($cart): void
     {
-        return $this->Carts;
+        $this->cart = $cart;
     }
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
-    public function getIdCalculation()
-    {
-        return $this->id_calculation;
-    }
-    public function setIdCalculation($id_calculation): void
-    {
-        $this->id_calculation = $id_calculation;
-	}
-    public function getIdUser()
-    {
-        return $this->id_user;
-    }
-    public function setIdUser($id_user): void
-    {
-        $this->id_user = $id_user;
-	}
+
 }

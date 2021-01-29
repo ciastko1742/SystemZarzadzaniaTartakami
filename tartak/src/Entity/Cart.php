@@ -19,23 +19,19 @@ class Cart
      */
     private $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Offer", inversedBy="carts")
-     */
-    private $offer;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $offer_price;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $transport_price;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $final_price;
 
@@ -44,11 +40,62 @@ class Cart
      */
     private $date_add;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $ordered=0;
+
+    /**
+     * @return mixed
+     */
+    public function getOrdered()
+    {
+        return $this->ordered;
+    }
+
+    /**
+     * @param mixed $ordered
+     */
+    public function setOrdered($ordered): void
+    {
+        $this->ordered = $ordered;
+    }
+
     private $orders;
+
+    private $offers;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="carts")
+     */
+    private $user;
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user): void
+    {
+        $this->user = $user;
+    }
+
 
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->offers = new ArrayCollection();
+    }
+
+    public function getOffers() : Collection
+    {
+        return $this->offers;
     }
 
     public function getOrders() : Collection
@@ -60,43 +107,43 @@ class Cart
     {
         return $this->id;
     }
-    public function getIdOffer()
-    {
-        return $this->id_offer;
-    }
-    public function setIdOffer($id_offer): void
-    {
-        $this->id_offer = $id_offer;
-    }
+
     public function getOfferPrice()
     {
         return $this->offer_price;
     }
+
     public function setOfferPrice($offer_price): void
     {
         $this->offer_price = $offer_price;
     }
+
     public function getTransportPrice()
     {
         return $this->transport_price;
     }
+
     public function setTransportPrice($transport_price): void
     {
         $this->transport_price = $transport_price;
     }
-    public function getFianlPrice()
+
+    public function getFinalPrice()
     {
         return $this->final_price;
     }
+
     public function setFinalPrice($final_price): void
     {
         $this->final_price = $final_price;
     }
+
     public function getDateAdd()
     {
         return $this->date_add;
     }
-    public function setName($date_add): void
+
+    public function setDateAdd($date_add): void
     {
         $this->date_add = $date_add;
     }

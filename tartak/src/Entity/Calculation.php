@@ -114,7 +114,7 @@ class Calculation
     }
     public function setQuantity($quantity): void
     {
-        $this->quntity = $quantity;
+        $this->quantity = $quantity;
 	}
     public function getPrice()
     {

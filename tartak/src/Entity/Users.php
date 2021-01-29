@@ -7,28 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=UsersRepository::class)
  */
 class Users implements UserInterface
 {
-    /**
-     * @return mixed
-     */
-    public function getIdGroup()
-    {
-        return $this->id_group;
-    }
 
-    /**
-     * @param mixed $id_group
-     */
-    public function setIdGroup($id_group): void
-    {
-        $this->id_group = $id_group;
-    }
     /**
      * @return mixed
      */
@@ -236,7 +221,7 @@ class Users implements UserInterface
     private $phone;
 
     /**
-     * @ORM\Column(type="string", length=256, unique=true)
+     * @ORM\Column(type="string", length=191, unique=true)
      */
     private $email;
 
@@ -245,26 +230,22 @@ class Users implements UserInterface
      */
     private $password;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $id_group = 1;
 
     /**
      * @ORM\Column(type="array")
      */
     private $roles;
 
-    private $offers;
+    private $carts;
 
     public function __construct()
     {
-        $this->offers = new ArrayCollection();
+        $this->carts = new ArrayCollection();
     }
 
-    public function getOffers() : Collection
+    public function getCarts() : Collection
     {
-        return $this->offers;
+        return $this->carts;
     }
 
     public function getId(): ?int

@@ -48,7 +48,6 @@ class UserFixtures extends Fixture
               'postcode'=>'01-111',
               'company'=>'Firma',
               'nip'=>'123123123',
-              'group'=>1,
               'roles'=>['ROLE_USER']
           ],
             [
@@ -61,7 +60,6 @@ class UserFixtures extends Fixture
               'postcode'=>'01-111',
               'company'=>'Firma',
               'nip'=>'123123123',
-              'group'=>1,
               'roles'=>['ROLE_ADMIN']
           ],
             [
@@ -74,7 +72,6 @@ class UserFixtures extends Fixture
               'postcode'=>'01-111',
               'company'=>'Firma',
               'nip'=>'123123123',
-              'group'=>1,
               'roles'=>['ROLE_SUPERADMIN']
           ]
         ];
@@ -89,7 +86,6 @@ class UserFixtures extends Fixture
             $user->setPostcode($userToCreate['postcode']);
             $user->setCompany($userToCreate['company']);
             $user->setNip($userToCreate['nip']);
-            $user->setIdGroup(1);
             $user->setRoles($userToCreate['roles']);
             $password = $this->encoder->encodePassword($user, 'password');
             $user->setPassword($password);
