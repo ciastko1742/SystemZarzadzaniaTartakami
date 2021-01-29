@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello OrderController!{% endblock %}
+
+{% block body %}
+  <style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+  </style>
+
+  <div class="example-wrapper">
+    <h4>Zamówienie z dnia {{ order.getDateAdd()|date("m/d/Y") }}</h4><hr>
+
+    <table class="table table-striped">
+      <thead><tr><th>Materiał</th><th>Długość</th><th>Szerokość</th><th>Grubość</th><th>Cena</th></tr></thead>
+      <tbody>
+      {% for offer in order.getCart().getOffers() %}
+        <tr>
+          <td>{{ offer.getCalculation().getMaterial().getName() }} - {{ offer.getCalculation().getMaterial().getType().getName() }}</td>
+          <td>{{ offer.getCalculation().getLength() }} cm</td>
+          <td>{{ offer.getCalculation().getWidth() }} cm</td>
+          <td>{{ offer.getCalculation().getQuantity() }} cm</td>
+          <td>{{ offer.getCalculation().getPrice() }} zł</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table><hr>
+    <p>Wybrany transport: <b>{{ order.getCart().getTransport().getName() }}</b></p>
+    <hr>
+    <p class="float-right" style="font-size: 20pt">Łącznie cena: {{ order.getCart().getFinalPrice() }} zł</p>
+  </div>
+{% endblock %}
