@@ -16,7 +16,7 @@ var $ = require('jquery');
 require('bootstrap');
 
 $(document).ready(function() {
-    $('.addToCartModal').on('click', function () {
+    $(document).on('click','.addToCartModal', function () {
         let product_id = $(this).attr('data-id');
         let product_name = $(this).attr('data-product_name');
         let product_type = $(this).attr('data-product_type');
